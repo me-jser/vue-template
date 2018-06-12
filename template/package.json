@@ -18,7 +18,9 @@
     "build": "node build/build.js"{{#jsdoc}},
     "jsdoc": "node dev-script/build-jsdoc.js"{{/jsdoc}}{{#installGlobalDependencies}},
     "preinstall": "sudo npm i -g eslint {{#jsdoc}}jsdoc{{/jsdoc}} {{#commitizen}}commitizen{{/commitizen}} {{#initGit}}&& git init{{/initGit}}"
-    {{/installGlobalDependencies}}
+    {{/installGlobalDependencies}}{{#useGitLint}},
+    "gitcheck": "node dev-script/verifyCommitMsg.js"{{/useGitLint}}
+
   },
   "dependencies": {
     {{#axios}}
@@ -103,7 +105,8 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0"{{#useGitLint}},
+    "yorkie": "^1.0.3"{{/useGitLint}}
   },{{#commitizen}}
   "config": {
     "commitizen": {
@@ -113,6 +116,11 @@
       "config": "dev-script/.cz-config.js"
     }
   },{{/commitizen}}
+  {{#useGitLint}}
+  "gitHooks": {
+    "commit-msg": "npm run gitcheck"
+  },
+  {{/useGitLint}}
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"

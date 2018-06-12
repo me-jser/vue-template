@@ -185,6 +185,11 @@ module.exports = {
       type: 'confirm',
       message: 'Init a empty git repo with git init?',
     },
+    useGitLint: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Lint git commit with hook?',
+    },
     autoInstall: {
       when: 'isNotTest',
       type: 'list',
@@ -226,6 +231,7 @@ module.exports = {
     'src/store/**/*': 'store',
     'dev-script/build-jsdoc.js': 'jsdoc',
     'dev-script/.cz-config.js': 'commitizen',
+    'dev-script/verifyCommitMsg.js': 'useGitLint',
     'src/api/**/*': 'axios',
   },
   complete: function(data, { chalk }) {
