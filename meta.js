@@ -74,13 +74,60 @@ module.exports = {
       type: 'confirm',
       message: 'Install vue-router?',
     },
-    lint: {
+    store: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Use ESLint to lint your code?',
+      message: 'Install vuex?',
+    },
+    elementUI: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Install element-ui?',
+    },
+    jsdoc: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Install jsdoc(global)?',
+    },
+    commitizen: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Install git commitizen(global)?',
+    },
+    installGlobalDependencies:{
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Install choosen dependencies global?',
+    },
+    axios: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Instantiation an axios instance for xhr?',
+    },
+    uselint: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Use ESLint or Node && eslint to lint your code?',
+    },
+    lint: {
+      when: 'isNotTest && uselint',
+      type: 'list',
+      message: 'Choose an instance of eslint (stadard with npm on nodejs script) ?',
+      choices: [
+        {
+          name: 'Standard (https://github.com/standard/standard)',
+          value: 'lint',
+          short: 'lint',
+        },
+        {
+          name: 'nodejs proxy eslint.(in dev-script/eslint.js)',
+          value: 'node',
+          short: 'node',
+        }
+      ],
     },
     lintConfig: {
-      when: 'isNotTest && lint',
+      when: 'isNotTest && uselint && lint === "lint"',
       type: 'list',
       message: 'Pick an ESLint preset',
       choices: [
@@ -133,6 +180,11 @@ module.exports = {
       type: 'confirm',
       message: 'Setup e2e tests with Nightwatch?',
     },
+    initGit: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Init a empty git repo with git init?',
+    },
     autoInstall: {
       when: 'isNotTest',
       type: 'list',
@@ -153,13 +205,14 @@ module.exports = {
           name: 'No, I will handle that myself',
           value: false,
           short: 'no',
-        },
-      ],
-    },
+        }
+      ] 
+    }
   },
   filters: {
-    '.eslintrc.js': 'lint',
-    '.eslintignore': 'lint',
+    '.eslintrc.js': 'uselint',
+    '.eslintignore': 'uselint',
+    'dev-script/eslint.js': 'lint ==="node"',
     'config/test.env.js': 'unit || e2e',
     'build/webpack.test.conf.js': "unit && runner === 'karma'",
     'test/unit/**/*': 'unit',
@@ -170,10 +223,15 @@ module.exports = {
     'test/unit/setup.js': "unit && runner === 'jest'",
     'test/e2e/**/*': 'e2e',
     'src/router/**/*': 'router',
+    'src/store/**/*': 'store',
+    'dev-script/build-jsdoc.js': 'jsdoc',
+    'dev-script/.cz-config.js': 'commitizen',
+    'src/api/**/*': 'axios',
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
-
+      console.log(data);
+      
     sortDependencies(data, green)
 
     const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)

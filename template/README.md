@@ -1,36 +1,31 @@
-# {{ name }}
+# front-end-structure
 
-> {{ description }}
+> common front end architecture
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
+# 开发规约
+## git
+ - git work flow
+ - commit tools
+## eslint
+## stylelint
+## unit test/ e2e
+## ts
+## vue 
+ - named components
+ - require/import
+ - npm 
 
-# build for production with minification
-npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
-{{#unit}}
+# 优化内容
+## 环境切换
+## JSDoc
+## webpack packging speed && size 
+## 网站性能优化
 
-# run unit tests
-npm run unit
-{{/unit}}
-{{#e2e}}
 
-# run e2e tests
-npm run e2e
-{{/e2e}}
-{{#if_or unit e2e}}
-
-# run all tests
-npm test
-{{/if_or}}
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+# 输出文档
+## 开发规约
+## build.sh 
+## env checker
