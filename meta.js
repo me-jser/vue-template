@@ -230,7 +230,7 @@ module.exports = {
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
-      console.log(data);
+
       
     sortDependencies(data, green)
 
