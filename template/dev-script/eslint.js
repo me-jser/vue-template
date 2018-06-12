@@ -21,7 +21,7 @@ exec(defaultCommand, (err, stdout, stderr) => {
   }
   if (stdout) {
     console.log(stdout)
-    console.log(colors.consoleRed, '检查未通过，请选择是否进行自动修复(使用eslint --fix)')
+    console.log(colors.consoleRed, '检查未通过，请选择是否尝试进行自动修复(使用eslint --fix)')
 
     let schema = {
       properties: {
