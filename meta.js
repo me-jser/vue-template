@@ -4,6 +4,7 @@ const fs = require('fs')
 const {
   sortDependencies,
   installDependencies,
+  installGlobalDependencies,
   runLintFix,
   printMessage,
 } = require('./utils')
@@ -242,19 +243,30 @@ module.exports = {
 
     const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
 
-    if (data.autoInstall) {
-      installDependencies(cwd, data.autoInstall, green)
+    if(data.installGlobalDependencies){
+      installGlobalDependencies(cwd, 'npm', green)
         .then(() => {
-          return runLintFix(cwd, data, green)
-        })
-        .then(() => {
-          printMessage(data, green)
+          if (data.autoInstall) {
+            console.log("cwd" + cwd);
+            
+            installDependencies(cwd, data.autoInstall, green)
+              .then(() => {
+                return runLintFix(cwd, data, green)
+              })
+              .then(() => {
+                printMessage(data, green)
+              })
+              .catch(e => {
+                console.log(chalk.red('Error:'), e)
+              })
+          } else {
+            printMessage(data, chalk)
+          }
         })
         .catch(e => {
           console.log(chalk.red('Error:'), e)
         })
-    } else {
-      printMessage(data, chalk)
     }
+  
   },
 }

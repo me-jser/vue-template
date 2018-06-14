@@ -17,10 +17,9 @@
     {{/if_eq}}
     "build": "node build/build.js"{{#jsdoc}},
     "jsdoc": "node dev-script/build-jsdoc.js"{{/jsdoc}}{{#installGlobalDependencies}},
-    "preinstall": "sudo npm i -g eslint {{#jsdoc}}jsdoc{{/jsdoc}} {{#commitizen}}commitizen{{/commitizen}} {{#initGit}}&& git init{{/initGit}}"
+    "globalInstall": "sudo npm i -g eslint {{#jsdoc}}jsdoc{{/jsdoc}} {{#commitizen}}commitizen{{/commitizen}} {{#initGit}}&& git init{{/initGit}}"
     {{/installGlobalDependencies}}{{#useGitLint}},
     "gitcheck": "node dev-script/verifyCommitMsg.js"{{/useGitLint}}
-
   },
   "dependencies": {
     {{#axios}}
@@ -57,6 +56,7 @@
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.0",
     "cz-customizable": "^5.2.0",
+    {{#uselint}}
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
@@ -66,13 +66,26 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.5.0",
+    {{/uselint}}
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
     "inject-loader": "^3.0.0",
+    {{#jsdoc}}
     "jsdoc": "^3.5.5",
     "jsdoc-vue": "^1.0.0",
+    {{/jsdoc}}
+    {{#if_eq runner "jest"}}
+    "babel-jest": "^21.0.2",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "jest": "^22.0.4",
+    "jest-serializer-vue": "^0.3.0",
+    "vue-jest": "^1.0.2",
+    {{/if_eq}}
+    {{#if_eq runner "karma"}}
+    "cross-env": "^5.0.1",
     "karma": "^1.4.1",
     "karma-coverage": "^1.1.1",
     "karma-mocha": "^1.3.0",
@@ -83,6 +96,20 @@
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.2",
     "mocha": "^3.2.0",
+    "chai": "^4.1.2",
+    "sinon": "^4.0.0",
+    "sinon-chai": "^2.8.0",
+    "inject-loader": "^3.0.0",
+    "babel-plugin-istanbul": "^4.1.1",
+    "phantomjs-prebuilt": "^2.1.14",
+    {{/if_eq}}
+    {{#e2e}}
+    "babel-register": "^6.22.0",
+    "chromedriver": "^2.27.2",
+    "cross-spawn": "^5.0.1",
+    "nightwatch": "^0.9.12",
+    "selenium-server": "^3.0.1",
+    {{/e2e}}
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",

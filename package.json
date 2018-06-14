@@ -9,5 +9,8 @@
   },
   "devDependencies": {
     "vue-cli": "^2.8.1"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1"
   }
 }

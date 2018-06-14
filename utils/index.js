@@ -39,6 +39,24 @@ exports.installDependencies = function installDependencies(
 }
 
 /**
+ * Runs `npm run globalInstall` in the project directory
+ * @param {string} cwd Path of the created project directory
+ * @param {object} data Data from questionnaire
+ */
+exports.installGlobalDependencies = function installGlobalDependencies(
+  cwd,
+  executable = 'npm',
+  color
+) {
+  debugger
+  console.log(`\n\n# ${color('Installing global dependencies ...')}`)
+  console.log('# ========================\n')
+  return runCommand(executable, ['run globalInstall'], {
+    cwd,
+  })
+}
+
+/**
  * Runs `npm run lint -- --fix` in the project directory
  * @param {string} cwd Path of the created project directory
  * @param {object} data Data from questionnaire
@@ -115,7 +133,9 @@ function installMsg(data) {
  * @param {object} options
  */
 function runCommand(cmd, args, options) {
+  
   return new Promise((resolve, reject) => {
+    debugger
     const spwan = spawn(
       cmd,
       args,
